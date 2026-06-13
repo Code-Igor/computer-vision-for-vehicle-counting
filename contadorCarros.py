@@ -18,7 +18,7 @@ while True:
     imgGray = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
 
     ## medidas do retangulo
-    x,y,w,h = 300,500,50,100
+    x,y,w,h = 300,530,40,80
   
 
     imgTh = cv2.adaptiveThreshold(imgGray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 12)
@@ -28,17 +28,16 @@ while True:
     recorte = imgDil[y:y+h,x:x+w]
     brancos = cv2.countNonZero(recorte)
 
-    if brancos > 4100 and liberado:
+    ## contagem em si funcionando
+    # 10 veiculos passam pelo video (logo esse é o objetivo) 
+    if brancos > 2700 and liberado:
         contador +=1
         liberado = False
-
-    if brancos < 3990:
+    if brancos < 2500:
         liberado = True
 
-
     if liberado == False:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 4)
-        
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 4)        
     else:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255, 0, 255),4)
 
